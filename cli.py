@@ -12,14 +12,15 @@ fake = Faker()
 
 init(autoreset=True)  # Initialize colorama for colored output
 
-def print_header(title):
-    """Prints a formatted section header."""
+#header
+def print_header(title): 
     print(Fore.CYAN + "\n" + "=" * 50)
     print(f"{title.center(50)}")
     print("=" * 50 + "\n" + Style.RESET_ALL)
 
+
+#main menu section
 def main():
-    """Main menu loop for the system."""
     while True:
         print_header("📌 Crime Investigation & Case Management System")
         print(Fore.YELLOW + "1️⃣ Manage Cases")
@@ -47,16 +48,15 @@ def main():
         else:
             print(Fore.RED + "❌ Invalid choice. Please try again.")
 
-### **Case Management**
+#Case Menu ...manages all cases
 def case_menu():
-    """Manages cases in the system."""
     while True:
         print_header("📂 Case Management")
         print("1️⃣ Add a New Case")
         print("2️⃣ View All Cases")
         print("3️⃣ Find Case by ID")
         print("4️⃣ Delete Case")
-        print("5️⃣ Generate Random Case (Using Faker)")
+        print("5️⃣ Generate Random Case")
         print("0️⃣ Back to Main Menu")
         
         choice = input("Enter your choice: ")
@@ -103,13 +103,12 @@ def case_menu():
             print(Fore.RED + "❌ Invalid choice. Please try again.")
 
 def generate_random_case():
-    """Creates and adds a random unsolved case to the database using Faker."""
     try:
         crime_types = ["Robbery", "Murder", "Kidnapping", "Fraud", "Burglary", "Assault", "Arson", "Cybercrime"]
         statuses = ["Open", "Under Investigation", "Closed"]
 
         crime_type = random.choice(crime_types)
-        location = fake.address()  # Generate a realistic address
+        location = fake.address()  
         status = random.choice(statuses)
         date = fake.date_between(start_date="-5y", end_date="today").strftime("%Y-%m-%d")  # Random past date
 
@@ -118,12 +117,12 @@ def generate_random_case():
     except Exception as e:
         print(Fore.RED + f"\n❌ Error generating case: {str(e)}\n")
 
-    # Pause before returning to menu
+   
     input(Fore.YELLOW + "Press Enter to return to the menu...")
 
 
+#suspect menu
 def suspect_menu():
-    """Manages suspects in the system."""
     while True:
         print_header("🚔 Suspect Management")
         print("1️⃣ Add a Suspect")
@@ -189,7 +188,7 @@ def suspect_menu():
             print(Fore.RED + "❌ Invalid choice. Please try again.")
 
 def generate_random_suspect():
-    """Creates and adds a random suspect using Faker."""
+    
     try:
         name = fake.name()
         age = random.randint(18, 65)
@@ -206,7 +205,6 @@ def generate_random_suspect():
 
 
 def evidence_menu():
-    """Manages evidence in the system."""
     while True:
         print_header("🔍 Evidence Management")
         print("1️⃣ Add Evidence")
@@ -268,7 +266,6 @@ def evidence_menu():
             print(Fore.RED + "❌ Invalid choice. Please try again.")
 
 def generate_random_evidence():
-    """Creates and adds a random piece of evidence."""
     session = Session()
     
     cases = session.query(Case).all()
@@ -295,7 +292,6 @@ def generate_random_evidence():
 
 
 def detective_menu():
-    """Manages detectives in the system."""
     while True:
         print_header("🕵️ Detective Management")
         print("1️⃣ Add a Detective")
@@ -358,7 +354,6 @@ def detective_menu():
             print(Fore.RED + "❌ Invalid choice. Please try again.")
 
 def generate_random_detective():
-    """Creates and adds a random detective."""
     names = ["James Carter", "Sarah Connor", "John Wick", "Emily Watson", "Mark Spencer"]
     ranks = ["Junior", "Senior", "Chief", "Inspector"]
     
@@ -385,7 +380,6 @@ def generate_random_detective():
 
 
 def criminal_record_menu():
-    """Manages criminal records in the system."""
     while True:
         print_header("⚖️ Criminal Record Management")
         print("1️⃣ Add a Criminal Record")
@@ -452,7 +446,6 @@ def criminal_record_menu():
             print(Fore.RED + "❌ Invalid choice. Please try again.")
 
 def generate_random_criminal_record():
-    """Creates and adds a random criminal record."""
     session = Session()
 
     try:
@@ -483,7 +476,7 @@ def generate_random_criminal_record():
         print(Fore.RED + f"\n❌ Error generating criminal record: {str(e)}\n")
 
     finally:
-        session.close()  # Ensure session is closed to prevent memory leaks
+        session.close() 
 
     input(Fore.YELLOW + "Press Enter to return to the menu...")
 
